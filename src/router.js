@@ -39,8 +39,12 @@ router.post(
 // Not public routes
 router.use(verifyToken, verifyAdmin); // authentication wall : verifyToken is activated for each route after this line
 
-router.post("/fights", fightControllers.add);
-router.post("/teams", teamControllers.add);
+router.post(
+  "/fights/:id",
+  fightControllers.add,
+  userControllers.editFightsDone
+);
+router.post("/teams/:id", teamControllers.add, userControllers.resetFightsDone);
 router.get("/reconnect", replaceReqParamIdByPayloadSub, userControllers.read);
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);

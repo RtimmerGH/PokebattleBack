@@ -1,6 +1,6 @@
 const models = require("../models");
 
-const add = (req, res) => {
+const add = (req, res, next) => {
   if (parseInt(req.payload.sub, 10) !== req.body.attackUserId) {
     res.sendStatus(403);
   } else {
@@ -10,7 +10,7 @@ const add = (req, res) => {
         if (result.affectedRows === 0) {
           res.sendStatus(404);
         } else {
-          res.sendStatus(204);
+          next();
         }
       })
       .catch((err) => {

@@ -1,6 +1,50 @@
 const models = require("../models");
 
-const add = (req, res) => {
+// const add = (req, res) => {
+//   if (parseInt(req.payload.sub, 10) !== req.body.userId) {
+//     res.sendStatus(403);
+//   } else {
+//     models.team
+//       .findAllForUser(req.body.userId)
+//       .then(([result]) => {
+//         if (result[0] == null) {
+//           models.team
+//             .insert(req.body)
+//             .then(([result2]) => {
+//               if (result2.affectedRows === 0) {
+//                 res.sendStatus(404);
+//               } else {
+//                 res.sendStatus(204);
+//               }
+//             })
+//             .catch((err) => {
+//               console.error(err);
+//               res.sendStatus(500);
+//             });
+//         } else {
+//           models.team
+//             .update(req.body)
+//             .then(([result2]) => {
+//               if (result2.affectedRows === 0) {
+//                 res.sendStatus(404);
+//               } else {
+//                 res.sendStatus(204);
+//               }
+//             })
+//             .catch((err) => {
+//               console.error(err);
+//               res.sendStatus(500);
+//             });
+//         }
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//         res.sendStatus(500);
+//       });
+//   }
+// };
+
+const add = (req, res, next) => {
   if (parseInt(req.payload.sub, 10) !== req.body.userId) {
     res.sendStatus(403);
   } else {
@@ -14,7 +58,7 @@ const add = (req, res) => {
               if (result2.affectedRows === 0) {
                 res.sendStatus(404);
               } else {
-                res.sendStatus(204);
+                next();
               }
             })
             .catch((err) => {
@@ -28,7 +72,7 @@ const add = (req, res) => {
               if (result2.affectedRows === 0) {
                 res.sendStatus(404);
               } else {
-                res.sendStatus(204);
+                next();
               }
             })
             .catch((err) => {
