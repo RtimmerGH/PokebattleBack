@@ -32,6 +32,13 @@ class UserManager extends AbstractManager {
     );
   }
 
+  updateFightsDone(user) {
+    return this.connection.query(
+      `update ${this.table} set fights_done = ? where id = ?`,
+      [user.userFightsDone, user.id]
+    );
+  }
+
   updatePassword(user) {
     return this.connection.query(
       `update ${this.table} set hashedPassword = ? where id = ?`,
@@ -45,13 +52,6 @@ class UserManager extends AbstractManager {
       [email]
     );
   }
-
-  // getUserByEmail(email) {
-  //   return this.connection.query(
-  //     `select name, email, hashedPassword, id, admin from ${this.table} where email = ?`,
-  //     [email]
-  //   );
-  // }
 }
 
 module.exports = UserManager;

@@ -9,7 +9,7 @@ const app = express();
 // use some application-level middlewares
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.FRONTEND_URL,
     optionsSuccessStatus: 200,
   })
 );
